@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react'
 import { Container } from '../style/weather'
+import { filter } from '../utils/fetch'
 import { getWeatherData } from '../utils/getWeatherData'
 import City from './city'
 
@@ -33,40 +34,9 @@ const Weather = () => {
         setLoading(false)
         return
       }
-      filter()
+      filter(selected, setFiltered, weather)
     })()
-  }, [selected])
-
-  const filter = () => {
-    if (selected === 'Kaikki kaupungit') {
-      setFiltered([...weather])
-      return
-    }
-
-    if (selected === 'Tampere') {
-      const selectedCity = weather[0]
-      setFiltered([selectedCity])
-      return
-    }
-
-    if (selected === 'Jyvaskyla') {
-      const selectedCity = weather[1]
-      setFiltered([selectedCity])
-      return
-    }
-    if (selected === 'Kuopio') {
-      const selectedCity = weather[2]
-      setFiltered([selectedCity])
-      return
-    }
-
-    if (selected === 'Espoo') {
-      const selectedCity = weather[3]
-      console.log(selectedCity)
-      setFiltered([selectedCity])
-      return
-    }
-  }
+  }, [selected, weather])
 
   if (loading) return <p>Loading</p>
 
